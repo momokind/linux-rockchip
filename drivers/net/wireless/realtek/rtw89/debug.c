@@ -3260,7 +3260,7 @@ static void rtw89_sta_info_get_iter(void *data, struct ieee80211_sta *sta)
 	seq_printf(m, " BW:%u", rtw89_rate_info_bw_to_mhz(rate->bw));
 	seq_printf(m, "\t(hw_rate=0x%x)", rtwsta->ra_report.hw_rate);
 	seq_printf(m, "\t==> agg_wait=%d (%d)\n", rtwsta->max_agg_wait,
-		   sta->deflink.agg.max_rc_amsdu_len);
+		   sta->agg.max_rc_amsdu_len);
 
 	seq_printf(m, "RX rate [%d]: ", rtwsta->mac_id);
 

@@ -436,10 +436,10 @@ rtw89_core_tx_update_ampdu_info(struct rtw89_dev *rtwdev,
 
 	ampdu_num = (u8)((rtwsta->ampdu_params[tid].agg_num ?
 			  rtwsta->ampdu_params[tid].agg_num :
-			  4 << sta->deflink.ht_cap.ampdu_factor) - 1);
+			  4 << sta->ht_cap.ampdu_factor) - 1);
 
 	desc_info->agg_en = true;
-	desc_info->ampdu_density = sta->deflink.ht_cap.ampdu_density;
+	desc_info->ampdu_density = sta->ht_cap.ampdu_density;
 	desc_info->ampdu_num = ampdu_num;
 }
 
@@ -650,7 +650,7 @@ __rtw89_core_tx_check_he_qos_htc(struct rtw89_dev *rtwdev,
 	if (pkt_type < PACKET_MAX)
 		return false;
 
-	if (!sta || !sta->deflink.he_cap.has_he)
+	if (!sta || !sta->he_cap.has_he)
 		return false;
 
 	if (!ieee80211_is_data_qos(fc))
@@ -740,10 +740,10 @@ static u16 rtw89_core_get_data_rate(struct rtw89_dev *rtwdev,
 	else
 		lowest_rate = RTW89_HW_RATE_OFDM6;
 
-	if (!sta || !sta->deflink.supp_rates[chan->band_type])
+	if (!sta || !sta->supp_rates[chan->band_type])
 		return lowest_rate;
 
-	return __ffs(sta->deflink.supp_rates[chan->band_type]) + lowest_rate;
+	return __ffs(sta->supp_rates[chan->band_type]) + lowest_rate;
 }
 
 static void
