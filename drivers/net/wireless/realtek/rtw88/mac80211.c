@@ -363,7 +363,7 @@ static void rtw_conf_tx(struct rtw_dev *rtwdev,
 static void rtw_ops_bss_info_changed(struct ieee80211_hw *hw,
 				     struct ieee80211_vif *vif,
 				     struct ieee80211_bss_conf *conf,
-				     u64 changed)
+				     u32 changed)
 {
 	struct rtw_dev *rtwdev = hw->priv;
 	struct rtw_vif *rtwvif = (struct rtw_vif *)vif->drv_priv;
@@ -478,8 +478,7 @@ static void rtw_ops_stop_ap(struct ieee80211_hw *hw,
 }
 
 static int rtw_ops_conf_tx(struct ieee80211_hw *hw,
-			   struct ieee80211_vif *vif,
-			   unsigned int link_id, u16 ac,
+			   struct ieee80211_vif *vif, u16 ac,
 			   const struct ieee80211_tx_queue_params *params)
 {
 	struct rtw_dev *rtwdev = hw->priv;

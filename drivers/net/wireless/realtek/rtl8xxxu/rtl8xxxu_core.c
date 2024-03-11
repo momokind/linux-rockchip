@@ -4950,7 +4950,7 @@ void rtl8xxxu_update_ra_report(struct rtl8xxxu_ra_report *rarpt,
 
 static void
 rtl8xxxu_bss_info_changed(struct ieee80211_hw *hw, struct ieee80211_vif *vif,
-			  struct ieee80211_bss_conf *bss_conf, u64 changed)
+			  struct ieee80211_bss_conf *bss_conf, u32 changed)
 {
 	struct rtl8xxxu_priv *priv = hw->priv;
 	struct device *dev = &priv->udev->dev;
@@ -5647,7 +5647,7 @@ static void rtl8xxxu_send_beacon_frame(struct ieee80211_hw *hw,
 				       struct ieee80211_vif *vif)
 {
 	struct rtl8xxxu_priv *priv = hw->priv;
-	struct sk_buff *skb = ieee80211_beacon_get(hw, vif, 0);
+	struct sk_buff *skb = ieee80211_beacon_get(hw, vif);
 	struct device *dev = &priv->udev->dev;
 	int retry;
 	u8 val8;
@@ -6666,8 +6666,7 @@ exit:
 }
 
 static int rtl8xxxu_conf_tx(struct ieee80211_hw *hw,
-			    struct ieee80211_vif *vif,
-			    unsigned int link_id, u16 queue,
+			    struct ieee80211_vif *vif, u16 queue,
 			    const struct ieee80211_tx_queue_params *param)
 {
 	struct rtl8xxxu_priv *priv = hw->priv;
@@ -7344,7 +7343,6 @@ static int rtl8xxxu_sta_remove(struct ieee80211_hw *hw,
 
 static const struct ieee80211_ops rtl8xxxu_ops = {
 	.tx = rtl8xxxu_tx,
-	.wake_tx_queue = ieee80211_handle_wake_tx_queue,
 	.add_interface = rtl8xxxu_add_interface,
 	.remove_interface = rtl8xxxu_remove_interface,
 	.config = rtl8xxxu_config,

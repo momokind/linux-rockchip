@@ -982,8 +982,7 @@ static int _rtl_get_hal_qnum(u16 queue)
  *for rtl819x  BE = 0, BK = 1, VI = 2, VO = 3
  */
 static int rtl_op_conf_tx(struct ieee80211_hw *hw,
-			  struct ieee80211_vif *vif,
-			  unsigned int link_id, u16 queue,
+			  struct ieee80211_vif *vif, u16 queue,
 			  const struct ieee80211_tx_queue_params *param)
 {
 	struct rtl_priv *rtlpriv = rtl_priv(hw);
@@ -1010,7 +1009,7 @@ static void send_beacon_frame(struct ieee80211_hw *hw,
 			      struct ieee80211_vif *vif)
 {
 	struct rtl_priv *rtlpriv = rtl_priv(hw);
-	struct sk_buff *skb = ieee80211_beacon_get(hw, vif, 0);
+	struct sk_buff *skb = ieee80211_beacon_get(hw, vif);
 	struct rtl_tcb_desc tcb_desc;
 
 	if (skb) {
@@ -1041,7 +1040,7 @@ EXPORT_SYMBOL_GPL(rtl_update_beacon_work_callback);
 static void rtl_op_bss_info_changed(struct ieee80211_hw *hw,
 				    struct ieee80211_vif *vif,
 				    struct ieee80211_bss_conf *bss_conf,
-				    u64 changed)
+				    u32 changed)
 {
 	struct rtl_priv *rtlpriv = rtl_priv(hw);
 	struct rtl_hal *rtlhal = rtl_hal(rtlpriv);
@@ -1922,7 +1921,6 @@ const struct ieee80211_ops rtl_ops = {
 	.start = rtl_op_start,
 	.stop = rtl_op_stop,
 	.tx = rtl_op_tx,
-	.wake_tx_queue = ieee80211_handle_wake_tx_queue,
 	.add_interface = rtl_op_add_interface,
 	.remove_interface = rtl_op_remove_interface,
 	.change_interface = rtl_op_change_interface,
